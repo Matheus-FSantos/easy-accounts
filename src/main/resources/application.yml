@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: easy-accounts
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    format_sql: true
