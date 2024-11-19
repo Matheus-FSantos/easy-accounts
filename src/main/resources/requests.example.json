@@ -10,5 +10,9 @@
       "email": "jhon@gmail.com",
       "mobileNumber": "11965819025"
     }
+  ],
+  "http://{ host }/api/fetch?mobileNumber=": [
+    "11965819026",
+    "11965819025"
   ]
 }
