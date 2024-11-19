@@ -1,7 +1,10 @@
 package io.github.matheusfsantos.easybank.accounts.dto;
 
-public record AccountDto(
-    Long accountNumber,
-    String accountType,
-    String branchAddress
-) {}
+import lombok.Data;
+
+@Data
+public class AccountDto {
+    private Long accountNumber;
+    private String accountType;
+    private String branchAddress;
+}

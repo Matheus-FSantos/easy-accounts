@@ -11,7 +11,6 @@ import lombok.*;
 @Entity
 @Table(name = "customers")
 public class Customer extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
@@ -26,4 +25,9 @@ public class Customer extends BaseEntity {
     @Column(name = "mobile_number",nullable = false, length = 20)
     private String mobileNumber;
 
+    public Customer(String name, String email, String mobileNumber) {
+        this.name = name;
+        this.email = email;
+        this.mobileNumber = mobileNumber;
+    }
 }

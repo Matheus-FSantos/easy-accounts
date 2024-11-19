@@ -11,7 +11,6 @@ import lombok.*;
 @Entity
 @Table(name = "accounts")
 public class Account extends BaseEntity {
-
     @Id
     @Column(name = "account_number")
     private Long accountNumber;
@@ -25,4 +24,9 @@ public class Account extends BaseEntity {
     @Column(name = "branch_address", length = 200, nullable = false)
     private String branchAddress;
 
+    public Account(Long accountNumber, String accountType, String branchAddress) {
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.branchAddress = branchAddress;
+    }
 }

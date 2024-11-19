@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @MappedSuperclass
 public class BaseEntity {
-
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
@@ -25,5 +24,4 @@ public class BaseEntity {
 
     @Column(insertable = false, length = 20)
     private String updatedBy;
-
 }
