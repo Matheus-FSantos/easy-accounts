@@ -1,10 +1,13 @@
 package io.github.matheusfsantos.easybank.accounts.service.impl;
 
 import io.github.matheusfsantos.easybank.accounts.constants.AccountsConstants;
+import io.github.matheusfsantos.easybank.accounts.dto.AccountDto;
 import io.github.matheusfsantos.easybank.accounts.dto.CustomerDto;
 import io.github.matheusfsantos.easybank.accounts.entity.Account;
 import io.github.matheusfsantos.easybank.accounts.entity.Customer;
 import io.github.matheusfsantos.easybank.accounts.exception.CustomerAlreadyExistsException;
+import io.github.matheusfsantos.easybank.accounts.exception.ResourceNotFoundException;
+import io.github.matheusfsantos.easybank.accounts.mapper.AccountMapper;
 import io.github.matheusfsantos.easybank.accounts.mapper.CustomerMapper;
 import io.github.matheusfsantos.easybank.accounts.repository.AccountsRepository;
 import io.github.matheusfsantos.easybank.accounts.repository.CustomersRepository;
@@ -13,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -31,6 +35,21 @@ public class AccountsServiceImpl implements IAccountsService {
         customer.setCreatedBy("Anonymous");
         Customer savedCustomer = this.customersRepository.save(customer);
         this.accountsRepository.save(this.createNewAccount(savedCustomer));
+    }
+
+    @Override
+    public CustomerDto fetchAccountDetails(String mobileNumber) {
+        Customer customer = this.customersRepository
+                .findByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber));
+
+        Account account = this.accountsRepository
+                .findByCustomerId(customer.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Account", "customerId", customer.getId().toString()));
+
+        CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
+        customerDto.setAccountDetails(AccountMapper.mapToAccountDto(account, new AccountDto()));
+        return customerDto;
     }
 
     /**

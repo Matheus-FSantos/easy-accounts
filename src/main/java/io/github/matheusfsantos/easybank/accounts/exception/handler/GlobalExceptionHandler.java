@@ -2,6 +2,7 @@ package io.github.matheusfsantos.easybank.accounts.exception.handler;
 
 import io.github.matheusfsantos.easybank.accounts.dto.ErrorResponseDto;
 import io.github.matheusfsantos.easybank.accounts.exception.CustomerAlreadyExistsException;
+import io.github.matheusfsantos.easybank.accounts.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,21 @@ public class GlobalExceptionHandler {
                     status,
                     exception.getMessage(),
                     LocalDateTime.now()
+                ));
+    }
+
+    @ExceptionHandler(ResourceNotFoundException .class)
+    public ResponseEntity<ErrorResponseDto> handleResourceNotFoundException(ResourceNotFoundException exception, WebRequest webRequest) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        return ResponseEntity
+                .status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorResponseDto(
+                        webRequest.getDescription(false),
+                        status,
+                        exception.getMessage(),
+                        LocalDateTime.now()
                 ));
     }
 }

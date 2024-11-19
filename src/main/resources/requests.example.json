@@ -1,0 +1,14 @@
+{
+  "http://{ host }/api/create": [
+    {
+      "name": "Dummy",
+      "email": "dummy@gmail.com",
+      "mobileNumber": "11965819026"
+    },
+    {
+      "name": "Jhon Doe",
+      "email": "jhon@gmail.com",
+      "mobileNumber": "11965819025"
+    }
+  ]
+}
